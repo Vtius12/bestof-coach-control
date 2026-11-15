@@ -1,19 +1,3 @@
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BEST OF — Coach Control</title>
-</head>
-<body style="font-family:Arial,sans-serif;text-align:center;padding:40px">
-  <h1>BEST OF — COACH CONTROL</h1>
-  <h2>SPAIN TEAM · 2027</h2>
-  <p>Prueba de funcionamiento en iPad</p>
-  <button onclick="document.getElementById('resultado').textContent='¡Botón funcionando correctamente!'"
-          style="font-size:20px;padding:16px">
-    PROBAR BOTÓN
-  </button>
-  <p id="resultado"></p>
-</body>
-</html>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#172b42"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Coach Control"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon.png"><title>BEST OF · Prueba offline</title><style>body{font-family:system-ui,-apple-system,sans-serif;background:#f3f5f8;color:#172b42;margin:0;padding:24px}main{max-width:650px;margin:auto}header{background:#172b42;color:white;border-radius:16px;padding:22px}button{border:0;border-radius:12px;padding:16px;margin:7px 7px 7px 0;background:#e0e8f1;color:#172b42;font-size:17px;min-height:52px;touch-action:manipulation}button.active{background:#172b42;color:white}.panel{background:white;padding:20px;border-radius:14px;margin-top:16px}#status{font-weight:700}small{color:#5b6775}</style></head><body><main><header><h1>BEST OF · COACH CONTROL</h1><p>Prueba de instalación y funcionamiento offline · Sin datos de competición</p></header><div class="panel"><strong>Prueba de pestañas</strong><div><button type="button" data-tab="uno" class="active">Operaciones</button><button type="button" data-tab="dos">Procesos</button><button type="button" data-tab="tres">Histórico</button></div><p id="tabText">Pestaña Operaciones activa.</p></div><div class="panel"><strong>Prueba de almacenamiento local</strong><p>Contador guardado: <span id="count">0</span></p><button type="button" id="add">Registrar pulsación</button><button type="button" id="reset">Reiniciar contador</button><p><small>Cierra y vuelve a abrir la aplicación para comprobar si conserva el contador.</small></p></div><div class="panel"><p id="status">Comprobando disponibilidad offline…</p><p id="swstatus"></p><p><small>Para la prueba definitiva: instalar desde Safari, abrir una vez con Internet, activar modo avión, cerrar y volver a abrir desde el icono.</small></p></div></main><script>
+(function(){'use strict';const names={uno:'Operaciones',dos:'Procesos',tres:'Histórico'};document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));document.getElementById('tabText').textContent='Pestaña '+names[b.dataset.tab]+' activa.'}));let n=0;try{n=Number(localStorage.getItem('coach-pwa-test-count')||0)}catch(e){document.getElementById('swstatus').textContent='Aviso: almacenamiento local no disponible: '+e.message}const out=document.getElementById('count');out.textContent=n;function set(nv){n=nv;out.textContent=n;try{localStorage.setItem('coach-pwa-test-count',String(n))}catch(e){document.getElementById('swstatus').textContent='Error al guardar: '+e.message}}document.getElementById('add').addEventListener('click',()=>set(n+1));document.getElementById('reset').addEventListener('click',()=>set(0));function online(){document.getElementById('status').textContent=navigator.onLine?'Dispositivo conectado (según navegador)':'Dispositivo sin conexión (según navegador)'}window.addEventListener('online',online);window.addEventListener('offline',online);online();if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').then(()=>navigator.serviceWorker.ready).then(()=>{document.getElementById('swstatus').textContent='Caché offline preparada. Ya puedes probar en modo avión.'}).catch(e=>{document.getElementById('swstatus').textContent='Error preparando offline: '+e.message}))}else{document.getElementById('swstatus').textContent='Este navegador no admite Service Worker.'}})();
+</script></body></html>
